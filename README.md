@@ -1,6 +1,6 @@
-# Cultural evolution models
+# Social learning models
 
-Miscellaneous models relating in one way or another to cultural evolution.
+Miscellaneous models relating in one way or another to social learning and evolutionary processes on network graphs.
 
 ## Urn-based signalling (`signal_learning_game.ipynb`)
 
