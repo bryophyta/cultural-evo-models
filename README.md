@@ -14,3 +14,7 @@ et al. (2009) 'Learning to Signal: Analysis of a micro-level reinforcement model
 Model trying to explore how first-mover advantage in networks might interact with
 preferential attachment based on some score of 'quality' which is independent
 of network structure. Very much a work in progress.
+
+## Notes on generating combinations in JavaScript (`notes_on_combinations.md`)
+
+A post on different methods for generating unique and exhaustive combinations of elements (with repetition) in JavaScript.
