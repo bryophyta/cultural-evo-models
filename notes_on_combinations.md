@@ -1,5 +1,10 @@
 # Notes on generating combinations in JavaScript
 
+1. [The problem](#the-problem)
+2. [Option 1: Compact one-liner with `map()` functions](#option-1-compact-one-liner-with-map-functions)
+
+## The problem
+
 An issue I've run into a few times is how to generate the set of unique combinations of a given set of elements.
 
 For example, I've recently been working on modelling the social learning of signalling systems in Lewisian signalling games. The intuitive puzzle raised by Lewis is something like this.[^1] There are lots of situations where we benefit from having a common 'convention'. The classic example is which side of the road to drive on. Fundamentally, it doesn't matter that much *which* side we choose, so much as it matters that everyone using the road drives on the *same* side as each other, to avoid collisions. So how do we choose which side? An obvious option is to talk about it and make a decision together. But Lewis pointed out that language itself is 'conventional' in just the same way, and we can't have got together to discuss what words should mean before we had any language. So how could conventional meaning (or 'signals') come about in the first place?
@@ -38,7 +43,7 @@ Once I started looking at this I remembered that I've been here before and, of c
 But before finding that library, I tried out a couple of options which are pretty quick and easy (from a developer-experience perspective), and also stumbled across a pretty neat algorithm which I rather like. So I thought that I'd document some of what I tried so far, largely as a note-to-self for the future.
 
 
-## 1. Compact but terse: embedding `map()` functions
+## Option 1. Compact one-liner with `map()` functions
 
 I started off with a set of embedded `map()` and `flatMap()` functions. For example,
 
@@ -72,7 +77,7 @@ This code is pleasantly compact, but it has some definite downsides. It's not fl
 That said, if I just need short combinations of a few elements, it seems basically fine for the kind of personal project I'm working on at the moment.
 
 
-## 2. Naive generalisation of (1)
+## Option 2. Naive generalisation of (1)
 
 Looking for something a bit more flexible, I thought I'd wrap the embedded map structure in a function which would allow me to specify the length of the combination arrays to output, and apply successive `flatMap()` calls using a `while` loop:
 
@@ -96,7 +101,7 @@ This has more flexibility, and it should also have lower memory demands, as each
 However, I was pretty confident that my naive implementation wouldn't be anything like the most efficient you could get. So I thought I'd search around a bit.
 
 
-## 3. Generating Cartesian products by stepping through a lexicographic ordering of options
+## Option 3. Generating Cartesian products by stepping through a lexicographic ordering of options
 
 I thought I'd take a look at how products are generated in Python's itertools library. [The itertools docs](https://docs.python.org/3/library/itertools.html#itertools.product) outline a process which is reasonably similar to my second option above, albeit using list comprehension instead of `map()`:
 
@@ -199,7 +204,7 @@ function* product(repeat, ...arrs) {
 ---
 ## Notes
 
-[^1]: The classic work here is David Lewis, (1969) *Convention*, which draws on Thomas Shelling's (1960) *The Strategy of Conflict*. There is a really excellent critique of Lewis's own positive account of convention in Ruth Millikan's (2005) 'Language Conventions Made Simple'.
+[^1]: The classic work here is David Lewis, (1969) *Convention*, which draws on Thomas Schelling's (1960) *The Strategy of Conflict*. There is a really excellent critique of Lewis's own positive account of convention in Ruth Millikan's (2005) 'Language Conventions Made Simple'.
 [^2]: The code I'm working on at the moment draws from the model in Kevin Zollman's (2005) 'Talking to Neighbors: The Evolution of Regional Meaning', but a similarly 'simple' learning algorithm is also found in Argiento et al. (2009) 'Learning to Signal: Analysis of a micro-level reinforcement model', which I've modelled [here](https://github.com/bryophyta/social-learning-models/blob/main/signal_learning_game.ipynb).
 [^3]: The list format makes it easy to assign a strategy to an agent, e.g. `agent.signallingStrategy = signallingStrategies[0]`. Storing the strategies themselves as dictionaries then makes it easy to look up an agent's response to a given state of the world: if the world is in state `1`, the agent's signalling action will be `agent.signallingStrategy['1']`, i.e. `A`.
 [^4]: The combinations we're generating here are to fill in the 'values' of the key-value pairs in the strategy dictionaries. The keys are just repeated, so once we've got the arrays of values we can 'zip' each of them with the list of keys using a helper function.
