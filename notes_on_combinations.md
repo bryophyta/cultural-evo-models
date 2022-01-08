@@ -4,6 +4,7 @@
 - [Option 1: Compact one-liner with `map()` functions](#option-1-compact-one-liner-with-map-functions)
 - [Option 2. Naive generalisation of (1)](#option-2-naive-generalisation-of-1)
 - [Option 3. Generating Cartesian products by stepping through a lexicographic ordering of options](#option-3-generating-cartesian-products-by-stepping-through-a-lexicographic-ordering-of-options)
+- [Notes](#notes)
 
 ## The problem
 
@@ -180,7 +181,9 @@ function nextProduct(indices, pools) {
 }
 
 function* product(repeat, ...arrs) {
-    // you can't currently combine rest params and optional named params in js :( so we have to rely on parameter order so that we can handle an indefinite number of arrays
+    /* you can't currently combine rest params and optional named params in js :( 
+    so we have to rely on parameter order so that we can handle an indefinite 
+    number of arrays */
     const pools = [...arrs];
     const numPools = pools.length;
     let result = [];
